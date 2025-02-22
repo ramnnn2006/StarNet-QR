@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import qrcode
 from io import BytesIO
 import base64
+import os
 
 app = Flask(__name__)
 
@@ -25,4 +26,5 @@ def generate_qr():
     return jsonify({"qr_code": f"data:image/png;base64,{qr_data}"})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.getenv("PORT", 10000)) 
+    app.run(host="0.0.0.0", port=port, debug=True)
